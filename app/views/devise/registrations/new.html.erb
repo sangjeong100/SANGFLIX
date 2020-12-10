@@ -3,25 +3,34 @@
     background-image: url("/image/login_background.png");
     background-size: cover;
   }
-  input[type="text"], input[type="email"], input[type="number"], input[type="password"], textarea {
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="password"],
+  textarea {
     background-color: #333333;
     border: none;
     height: 50px;
   }
+
   .card {
-    background-color: rgba(0, 0, 0, 0.7); 
-    border:2px solid warning; 
-    font-size:12px; 
-    margin: auto; 
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid warning;
+    font-size: 12px;
+    margin: auto;
     margin-top: 130px;
   }
+
   .form-group {
-    margin-bottom: 23px !important; 
+    margin-bottom: 23px !important;
   }
+
   hr {
     border-color: white;
     opacity: 0.5;
   }
+
   .btn {
     height: 50px;
   }
@@ -37,8 +46,8 @@
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <div class="form-group">
           <div class="row">
-            <div class="col-6"><%= f.text_field :first_name, class: "form-control", placeholder: "성" %></div>
-            <div class="col-6"><%= f.text_field :last_name, class: "form-control", placeholder: "이름" %></div>
+            <div class="col-6"><%= f.text_field :last_name, class: "form-control", placeholder: "성" %></div>
+            <div class="col-6"><%= f.text_field :first_name, class: "form-control", placeholder: "이름" %></div>
           </div>
         </div>
 
@@ -56,13 +65,13 @@
             <div class="col-6"><%= f.password_field :password_confirmation, class: "form-control", placeholder: "비밀번호 확인" %></div>
           </div>
         </div>
-        <hr/>
+        <hr />
         <div class="actions">
-          <%= f.submit "회원가입", class: 'btn btn-red btn-block text-white' %> 
+          <%= f.submit "회원가입", class: 'btn btn-red btn-block text-white' %>
         </div>
-      <% end %>
-    </div>
-    <%= render "devise/shared/links" %>
+        <% end %>
+      </div>
+      <%= render "devise/shared/links" %>
     </div>
   </div>
 </div>

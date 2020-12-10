@@ -1,7 +1,9 @@
 <style>
-  body, html {
+  body,
+  html {
     height: 100%;
   }
+
   .hero-image {
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/image/login_background.png");
     height: 50%;
@@ -10,6 +12,7 @@
     background-size: cover;
     position: relative;
   }
+
   .hero-text {
     text-align: left;
     position: absolute;
@@ -18,10 +21,12 @@
     transform: translate(-50%, -50%);
     color: white;
   }
-  .hero-text > img {
+
+  .hero-text>img {
     min-height: 120px;
     min-width: 120px;
   }
+
   .movie-list {
     margin-left: 40px !important;
     margin-right: 40px !important;
@@ -45,35 +50,151 @@
     background-repeat: no-repeat;
     border: none;
   }
-  
-  .movie-name{
+
+  .movie-name {
     font-size: 23px;
     text: center;
+  }
+
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+  }
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
   }
 </style>
 
 
 
-<div class="movie-list mt-4">
-  <div>
-    <h4 class="text-white mt-5 mb-2 font-weight-bold">대여 목록</h4>
+<div class="movie-list my-4">
+  <h4 class="text-white mt-5 mb-3 font-weight-bold">대여 목록</h4>
+  <div class="owl-carousel owl-theme">
     <% @orders.rented.order(created_at: :desc).each do |rented_order| %>
-      <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= rented_order.movie.image_url %>');">
-        <div class="card-body justify-content-center" style="margin-top: 130px;">
-          <div class="movie-name font-weight-bolder text-center text-white"><%= rented_order.movie.movie_name %></div>
-        </div>
+    <div class="card" style="width: 18rem;background-color: rgba(100, 100, 100, 0.3);">
+      <img class="card-img-top" style="height: 160px;" src="<%= rented_order.movie.image_url %>" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title text-white"><%= rented_order.movie.movie_name %></h5>
+        <p class="card-text text-white">Rented Date: <%= pretty_date rented_order.created_at %></p>
+        <%= render "shared/rating", origin_score: rented_order.movie.rating %>
       </div>
+      <div class="card-body text-white">
+        <a href="<%= movie_path(rented_order.movie) %>" class="card-link text-red">Show</a>
+      </div>
+    </div>
     <% end %>
   </div>
 
-  <div>
-   <h4 class="text-white mt-5 mb-2 font-weight-bold">반납 목록</h4>
+  <h4 class="text-white mt-5 mb-3 font-weight-bold">반납 목록</h4>
+  <div class="owl-carousel owl-theme">
     <% @orders.returned.order(return_date: :desc).each do |returned_order| %>
-      <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= returned_order.movie.image_url %>');">
-        <div class="card-body justify-content-center" style="margin-top: 130px;">
-          <div class="movie-name font-weight-bolder text-center text-white"><%= returned_order.movie.movie_name %></div>
-        </div>
+    <div class="card" style="width: 18rem;background-color: rgba(100, 100, 100, 0.3);">
+      <img class="card-img-top" style="height: 160px;" src="<%= returned_order.movie.image_url %>" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title text-white"><%= returned_order.movie.movie_name %></h5>
+        <p class="card-text text-white">Return Date: <%= pretty_date returned_order.return_date %></p>
+        <%= render "shared/rating", origin_score: returned_order.movie.rating %>
       </div>
+      <div class="card-body text-white">
+        <%= form_for returned_order do |f| %>
+        <div class="row">
+          <div class="col-7">
+            <%= f.number_field :rating, class: "form-control text-white", autofocus: false, min:1, max: 10, style: "background-color: #333333;" %>
+          </div>
+          <div class="col-5">
+            <%= f.submit "Give star", class: 'btn btn-red btn-block text-white' %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
     <% end %>
   </div>
 </div>
+
+<script>
+  $(function() {
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 5,
+      nav: true,
+      responsive: {
+        0: {
+          items: 1
+        },
+        600: {
+          items: 3
+        },
+        1000: {
+          items: 5
+        }
+      }
+    });
+  });
+
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal 
+  btn.onclick = function() {
+    modal.style.display = "block";
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>

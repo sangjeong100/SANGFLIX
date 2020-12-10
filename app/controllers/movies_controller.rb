@@ -2,6 +2,9 @@ class MoviesController < ApplicationController
   before_action :authenticate_user!, only: %i(new create edit update destroy)
   before_action :load_object, only: %i(show edit update destroy)
 
+
+  def index;end
+
   def show;end 
 
 
@@ -59,8 +62,12 @@ class MoviesController < ApplicationController
     @user_movie_queue = ActiveRecord::Base.connection.exec_query(movie_queue_sql)
 
   end
+  
+  def search;end
+  
+  private
 
-  def item_params
+  def movie_params
     params.require(:movie).permit(:movie_name, :movie_type, :movie_description, :age_limit, :rating, :number_of_copies, :image, :video)
   end
 end

@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+
+  enum: 
+    user:
+      account_type: 
+        unlimited_pass: Unlimited Pass
+        twice_a_month_pass: Twice A Month Pass

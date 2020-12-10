@@ -1,3 +1,55 @@
-<div class="container">
-  
+<style>
+  body {
+    background: white !important;
+  }
+</style>
+
+<div class="container" style="background-color:white;">
+  <h2 class="mt-5">Account</h2>
+  <hr />
+  <%= form_for(current_user, url: "/update_info", method: :put, html: { id: 'form' }, remote: true) do |f| %>
+  <div class="row mt-3">
+    <div class="col-3">
+      <h4 class="text-gray">Payment Info</h4>
+    </div>
+    <div class="col-9">
+      <%= f.label "ACCOUNT TYPE", class: "text-gray" %>
+      <%= f.select :account_type, options_for_select(User.account_types.keys.map{|account_type| [I18n.t("enum.user.account_type.#{account_type}"), account_type]}, current_user.account_type), {}, {class: 'form-control'} %>
+      <div class="text-red mt-2 ml-2" style="font-size: 13px;">Next payment date :  <%= current_user.plan_date || pretty_date(Time.now + 1.month) %></div>
+      <%= f.label "ACCOUNT NUMBER", class: "text-gray mt-2" %>
+      <%= f.text_field :account_number, class: "form-control is-valid" %>
+    </div>
+  </div>
+  <hr />
+  <div class="row mt-3">
+    <div class="col-3">
+      <h4 class="text-gray">Account Info</h4>
+    </div>
+    <div class="col-9">
+      <%= f.label "NAME", class: "text-gray" %>
+      <div type="text" , class="form-control is-valid"><%= current_user.full_name %></div>
+      <%= f.label "EMAIL", class: "text-gray mt-2" %>
+      <%= f.email_field :email, class: "form-control is-valid" %>
+    </div>
+  </div>
+  <hr />
+  <div class="row mt-3">
+    <div class="col-3">
+      <h4 class="text-gray">Personnal Info</h4>
+    </div>
+    <div class="col-9">
+      <%= f.label "AGE", class: "text-gray mt-2" %>
+      <%= f.number_field :age, class: "form-control is-valid" %>
+      <%= f.label "ADDRESS", class: "text-gray mt-2" %>
+      <%= f.text_field :address, class: "form-control is-valid" %>
+      <%= f.label "DETAILED ADDRESS", class: "text-gray mt-2" %>
+      <%= f.text_field :detailed_address, class: "form-control is-valid" %>
+      <%= f.label "ZIPCODE", class: "text-gray mt-2" %>
+      <%= f.text_field :zipcode, class: "form-control is-valid" %>
+      <%= f.label "PHONE", class: "text-gray mt-2" %>
+      <%= f.text_field :telphone, class: "form-control is-valid" %>
+    </div>
+  </div>
+  <%= f.submit "SAVE", class: "btn btn-block btn-red float-right text-white my-3", style: "width: 10%;" %>
+  <% end %>
 </div>

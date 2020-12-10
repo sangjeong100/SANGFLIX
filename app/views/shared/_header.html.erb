@@ -14,24 +14,27 @@
   <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
     <ul class="navbar-nav">
       <li class="nav-item active mr-3">
-        <a class="nav-link font-nav" href="/">홈 <span class="sr-only">(current)</span></a>
+        <a class="nav-link font-nav" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <% if current_user %>
         <li class="nav-item mr-3">
-          <%= link_to "대여목록", orders_path, class: "nav-link font-nav" %>
+          <%= link_to "MovieList", movies_path, class: "nav-link font-nav" %>
         </li>
         <li class="nav-item mr-3">
-          <%= link_to "마이페이지", "#", class: "nav-link font-nav" %>
+          <%= link_to "OrderList", orders_path, class: "nav-link font-nav" %>
         </li>
         <li class="nav-item mr-3">
-          <%= link_to "로그아웃", destroy_user_session_path, method: :delete, class: "nav-link font-nav" %>
+          <%= link_to "MyPage", mypage_path, class: "nav-link font-nav" %>
+        </li>
+        <li class="nav-item mr-3">
+          <%= link_to "logout", destroy_user_session_path, method: :delete, class: "nav-link font-nav" %>
         </li>
       <% else %>
         <li class="nav-item mr-3">
-          <%= link_to "로그인", new_user_session_path, class: "nav-link font-nav" %>
+          <%= link_to "sign in", new_user_session_path, class: "nav-link font-nav" %>
         </li>
         <li class="nav-item mr-3">
-          <%= link_to "회원가입", new_user_registration_path, class: "nav-link font-nav" %>
+          <%= link_to "sign up", new_user_registration_path, class: "nav-link font-nav" %>
         </li>
       <% end %>
     </ul>
