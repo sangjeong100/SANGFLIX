@@ -1,0 +1,22 @@
+<!-- 리뷰 파일-->
+<% score = (score / 2.0).divmod(1) %>
+<% left = (5 - (score[0] + score[1])).floor %>
+
+<ul class="item_star display-flex no-padding text-color-red">
+  <% if score[0] >= 0 %>
+    <% (1..score[0]).each do %>
+      <li><i class="fas fa-star text-color-primary"></i></li>
+    <% end %>
+
+    <% if score[1] >= 0.5 %>
+      <li><i class="fas fa-star-half-alt text-color-primary"></i></li>
+    <% end %>
+
+    <% left.times do %>
+      <li><i class="far fa-star text-color-primary"></i></li>
+    <% end %>
+
+  <% else %>
+    <li><i class="far fa-star text-color-primary"></i></li>
+  <% end %>
+</ul>

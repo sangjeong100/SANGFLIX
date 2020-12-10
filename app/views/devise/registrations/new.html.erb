@@ -1,0 +1,68 @@
+<style>
+  body {
+    background-image: url("/image/login_background.png");
+    background-size: cover;
+  }
+  input[type="text"], input[type="email"], input[type="number"], input[type="password"], textarea {
+    background-color: #333333;
+    border: none;
+    height: 50px;
+  }
+  .card {
+    background-color: rgba(0, 0, 0, 0.7); 
+    border:2px solid warning; 
+    font-size:12px; 
+    margin: auto; 
+    margin-top: 130px;
+  }
+  .form-group {
+    margin-bottom: 23px !important; 
+  }
+  hr {
+    border-color: white;
+    opacity: 0.5;
+  }
+  .btn {
+    height: 50px;
+  }
+</style>
+
+<div class="container">
+  <div class="row justify-content-center align-self-center text-white">
+    <div class="card col-md-5 offset-md-3 p-5">
+      <div class="panel-body">
+        <div class="mar-ver pad-btm">
+          <h3 class="mb-5">회원가입</h3>
+        </div>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6"><%= f.text_field :first_name, class: "form-control", placeholder: "성" %></div>
+            <div class="col-6"><%= f.text_field :last_name, class: "form-control", placeholder: "이름" %></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.number_field :age, class: "form-control", autofocus: false, placeholder: "나이" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.email_field :email, class: "form-control", autofocus: false, placeholder: "이메일" %>
+        </div>
+
+        <div class="form-group">
+          <div class="row">
+            <div class="col-6"><%= f.password_field :password, class: "form-control", placeholder: "비밀번호" %></div>
+            <div class="col-6"><%= f.password_field :password_confirmation, class: "form-control", placeholder: "비밀번호 확인" %></div>
+          </div>
+        </div>
+        <hr/>
+        <div class="actions">
+          <%= f.submit "회원가입", class: 'btn btn-red btn-block text-white' %> 
+        </div>
+      <% end %>
+    </div>
+    <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

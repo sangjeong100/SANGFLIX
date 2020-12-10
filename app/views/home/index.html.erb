@@ -1,0 +1,166 @@
+<style>
+  body, html {
+    height: 100%;
+  }
+  .hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/image/login_background.png");
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .hero-text {
+    text-align: left;
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  .hero-text > img {
+    min-height: 120px;
+    min-width: 120px;
+  }
+  .movie-list {
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+  }
+
+  .movie-card-img {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .my-movie-card {
+    max-height: 600px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+  }
+  
+  .movie-name{
+    font-size: 23px;
+    text: center;
+  }
+</style>
+
+<div class="hero-image">
+  <div class="hero-text">
+    <img src="/image/sangflix.png" alt="">
+    <h3 class="mt-3 ml-4">당신에게 맞는 비디오를 찾아보세요</h3>
+    <h6 class="mt-3 ml-4">원하는 장르별, 인기순으로 비디오를 확인한 후 대여해보세요!</h6>
+  </div>
+</div>
+
+
+<div class="movie-list mt-4">
+<h3 class="text-white mt-5 mb-2 font-weight-bold">내 찜 목록</h3>
+  <% if current_user %>
+  <div class="owl-carousel owl-theme">
+    <% @current_user_movie_queues.each do |movie_queue| %>
+      <% movie = Movie.find_by(id: movie_queue.movie_id) %>
+      <%= link_to movie_path(movie) do %>
+        <div class="my-movie-card card" style="width: 21rem; height:500px !important; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
+          <div class="card-body justify-content-center" style="margin-top: 130px;">
+          </div>
+        </div>
+        <div class="row justify-content-start px-4 mt-3"> 
+          <h4 class="col-7 mt-2 text-white"><%= movie.movie_name %></h4>
+          <div class="col-5">
+            <% if current_user.orders.rented.where(movie_id: movie.id).present? %>
+              <%= link_to update_status_orders_path(movie_id: movie.id, return_status: :returned), method: :put, style: "width: 40%;", class: "btn btn-red btn-block text-white" do %>
+                  <i class="fas fa-check mr-2"></i>반납하기
+              <% end %>
+            <% else %>
+              <%= link_to orders_path(movie_id: movie.id), method: :post, style: "width: 40%;", class: "btn btn-red btn-block text-white" do %>
+                  <i class="fas fa-plus mr-2"></i>대여하기
+              <% end %>
+           <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <%end%>
+
+  <h3 class="text-white mt-5 mb-2 font-weight-bold">Comedy</h3>
+  <div class="owl-carousel owl-theme">
+    <% Movie.where(movie_type: "코미디").each do |movie| %>
+      <%= link_to movie_path(movie) do %>
+        <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
+          <div class="card-body justify-content-center" style="margin-top: 130px;">
+            <div class="movie-name font-weight-bolder text-center text-white"><%= movie.movie_name %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h3 class="text-white mt-5 mb-2 font-weight-bold">Drama</h3>
+  <div class="owl-carousel owl-theme">
+    <% Movie.where(movie_type: "드라마").each do |movie| %>
+      <%= link_to movie_path(movie) do %>
+        <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
+          <div class="card-body justify-content-center" style="margin-top: 130px;">
+            <div class="movie-name font-weight-bolder text-center text-white"><%= movie.movie_name %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h3 class="text-white mt-5 mb-2 font-weight-bold">Foreign</h3>
+  <div class="owl-carousel owl-theme">
+    <% Movie.where(movie_type: "해외드라마").each do |movie| %>
+      <%= link_to movie_path(movie) do %>
+        <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
+          <div class="card-body justify-content-center" style="margin-top: 130px;">
+            <div class="movie-name font-weight-bolder text-center text-white"><%= movie.movie_name %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <h3 class="text-white mt-5 mb-2 font-weight-bold">Action</h3>
+  <div class="owl-carousel owl-theme">
+    <% Movie.where(movie_type: "액션").each do |movie| %>
+      <%= link_to movie_path(movie) do %>
+        <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
+          <div class="card-body justify-content-center" style="margin-top: 130px;">
+            <div class="movie-name font-weight-bolder text-center text-white"><%= movie.movie_name %></div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    $('.owl-carousel').owlCarousel({
+      loop: true,
+      margin: 5,
+      nav: true,
+      responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
+        }
+      }
+    });
+  });
+</script>

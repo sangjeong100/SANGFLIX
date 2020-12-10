@@ -1,0 +1,79 @@
+<style>
+  body, html {
+    height: 100%;
+  }
+  .hero-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/image/login_background.png");
+    height: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  .hero-text {
+    text-align: left;
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  .hero-text > img {
+    min-height: 120px;
+    min-width: 120px;
+  }
+  .movie-list {
+    margin-left: 40px !important;
+    margin-right: 40px !important;
+  }
+
+  .movie-card-img {
+    width: 100%;
+    height: 100%;
+    max-height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .my-movie-card {
+    max-height: 600px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+  }
+  
+  .movie-name{
+    font-size: 23px;
+    text: center;
+  }
+</style>
+
+
+
+<div class="movie-list mt-4">
+  <div>
+    <h4 class="text-white mt-5 mb-2 font-weight-bold">대여 목록</h4>
+    <% @orders.rented.order(created_at: :desc).each do |rented_order| %>
+      <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= rented_order.movie.image_url %>');">
+        <div class="card-body justify-content-center" style="margin-top: 130px;">
+          <div class="movie-name font-weight-bolder text-center text-white"><%= rented_order.movie.movie_name %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+   <h4 class="text-white mt-5 mb-2 font-weight-bold">반납 목록</h4>
+    <% @orders.returned.order(return_date: :desc).each do |returned_order| %>
+      <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= returned_order.movie.image_url %>');">
+        <div class="card-body justify-content-center" style="margin-top: 130px;">
+          <div class="movie-name font-weight-bolder text-center text-white"><%= returned_order.movie.movie_name %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
