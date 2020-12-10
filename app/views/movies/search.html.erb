@@ -68,17 +68,24 @@
 
 <div class="movie-list mt-4">
   <h3 class="text-white mt-5 mb-3 font-weight-bold">Search Result</h3>
-  <div class="owl-carousel owl-theme">
-    <% Movie.select('*').from('movies').where("movie_name LIKE :query", query: "#{params[:q] <<"%"}").each do |movie| %>
-    <%= link_to movie_path(movie) do %>
-    <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
-      <div class="card-body justify-content-center" style="margin-top: 130px;">
-        <div class="movie-name font-weight-bolder text-center text-white"><%= movie.movie_name %></div>
+    <% search_result = Movie.select('*').from('movies').where("movie_name LIKE :query", query: "#{params[:q] <<"%"}") %>
+    <% unless search_result.empty? %>
+      <div class="owl-carousel owl-theme">
+        <% search_result.each do |movie| %>
+          <%= link_to movie_path(movie) do %>
+          <div class="card movie-card-img" style="width: 21rem; height:400px; background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('<%= movie.image_url %>');">
+            <div class="card-body justify-content-center" style="margin-top: 130px;">
+              <div class="movie-name font-weight-bolder text-center text-white"><%= movie.movie_name %></div>
+            </div>
+          </div>
+          <% end %>
+        <% end %>
       </div>
-    </div>
+    <% else %>
+      <div class="text-gray" style="font-size:20px;margin: 20px 0px 20px 0px; width:100%;">
+        There are no movies that match your search.
+      </div>
     <% end %>
-    <% end %>
-  </div>
 </div>
 
 <script>
