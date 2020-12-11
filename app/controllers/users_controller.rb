@@ -3,7 +3,15 @@ class UsersController < ApplicationController
   def mypage;end
   
   def update
-    current_user.update user_params
+    #plan_date 없으면 한달뒤 등록
+
+    if current_user.plan_date.nil? 
+      params = user_params.merge(plan_date: Time.now ) 
+      current_user.update params
+    else
+      current_user.update user_params
+    end
+    
   end 
 
   private 
