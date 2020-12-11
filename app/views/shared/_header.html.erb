@@ -17,31 +17,30 @@
         <a class="nav-link font-nav" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <% if current_user %>
-        <li class="nav-item mr-3">
-          <%= link_to "MovieList", movies_path, class: "nav-link font-nav" %>
-        </li>
-        <li class="nav-item mr-3">
-          <%= link_to "OrderList", orders_path, class: "nav-link font-nav" %>
-        </li>
-        <li class="nav-item mr-3">
-          <%= link_to "MyPage", mypage_path, class: "nav-link font-nav" %>
-        </li>
-        <li class="nav-item mr-3">
-          <%= link_to "logout", destroy_user_session_path, method: :delete, class: "nav-link font-nav" %>
-        </li>
+      <li class="nav-item mr-3">
+        <%= link_to "MovieList", movies_path, class: "nav-link font-nav" %>
+      </li>
+      <li class="nav-item mr-3">
+        <%= link_to "OrderList", orders_path, class: "nav-link font-nav" %>
+      </li>
+      <li class="nav-item mr-3">
+        <%= link_to "MyPage", mypage_path, class: "nav-link font-nav" %>
+      </li>
+      <li class="nav-item mr-3">
+        <%= link_to "logout", destroy_user_session_path, method: :delete,id:"logout_btn" ,class: "nav-link font-nav",data: { confirm: 'Are you sure​?' } %>
+      </li>
       <% else %>
-        <li class="nav-item mr-3">
-          <%= link_to "sign in", new_user_session_path, class: "nav-link font-nav" %>
-        </li>
-        <li class="nav-item mr-3">
-          <%= link_to "sign up", new_user_registration_path, class: "nav-link font-nav" %>
-        </li>
+      <li class="nav-item mr-3">
+        <%= link_to "sign in", new_user_session_path, class: "nav-link font-nav" %>
+      </li>
+      <li class="nav-item mr-3">
+        <%= link_to "sign up", new_user_registration_path, class: "nav-link font-nav" %>
+      </li>
       <% end %>
     </ul>
-    <%# <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form> %>
   </div>
 </nav>
 
+<script>
+
+</script>

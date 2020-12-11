@@ -41,33 +41,33 @@
     <div class="card col-md-5 offset-md-3 p-5">
       <div class="panel-body">
         <div class="mar-ver pad-btm">
-          <h3 class="mb-5">회원가입</h3>
+          <h3 class="mb-5">Sign Up</h3>
         </div>
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <div class="form-group">
           <div class="row">
-            <div class="col-6"><%= f.text_field :last_name, class: "form-control", placeholder: "성" %></div>
-            <div class="col-6"><%= f.text_field :first_name, class: "form-control", placeholder: "이름" %></div>
+            <div class="col-6"><%= f.text_field :last_name, class: "form-control", placeholder: "Last Name" %></div>
+            <div class="col-6"><%= f.text_field :first_name, class: "form-control", placeholder: "First Name" %></div>
           </div>
         </div>
 
         <div class="form-group">
-          <%= f.number_field :age, class: "form-control", autofocus: false, placeholder: "나이" %>
+          <%= f.number_field :age, class: "form-control", autofocus: false, placeholder: "age" %>
         </div>
 
         <div class="form-group">
-          <%= f.email_field :email, class: "form-control", autofocus: false, placeholder: "이메일" %>
+          <%= f.email_field :email, class: "form-control", autofocus: false, placeholder: "email" %>
         </div>
 
         <div class="form-group">
           <div class="row">
-            <div class="col-6"><%= f.password_field :password, class: "form-control", placeholder: "비밀번호" %></div>
-            <div class="col-6"><%= f.password_field :password_confirmation, class: "form-control", placeholder: "비밀번호 확인" %></div>
+            <div class="col-6"><%= f.password_field :password, class: "form-control", placeholder: "password" %></div>
+            <div class="col-6"><%= f.password_field :password_confirmation, class: "form-control", placeholder: "password confirm" %></div>
           </div>
         </div>
         <hr />
         <div class="actions">
-          <%= f.submit "회원가입", class: 'btn btn-red btn-block text-white' %>
+          <%= f.submit "sign up", class: 'btn btn-red btn-block text-white' %>
         </div>
         <% end %>
       </div>

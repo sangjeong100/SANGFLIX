@@ -9,7 +9,10 @@ class OrdersController < ApplicationController
   def create
 
     if current_user.account_type == nil 
-      @msg = "account type을 설정하셔야 주문을 할 수 있습니다."
+      @msg = "You must set the account type to place an order."
+    
+    elsif current_user.account_number == nil
+      @msg = "You must set an account number to place an order."
     else  
 
       #order 개수 2회 넘게 불가
@@ -17,24 +20,24 @@ class OrdersController < ApplicationController
 
       if current_user.account_type == "twice_a_month_pass" #0값
         #월 2회
-        @msg = "한달에 빌릴 수 있는 영화의 개수를 초과하였습니다."
+        @msg = "You have exceeded the number of movies you can rent per month!"
         if (count = current_user.total_monthly_order) < 2 && total_order_count < 2
           current_user.orders.rented.create(movie_id: params[:movie_id])
           current_user.update(total_monthly_order: count + 1)
           movie_copies_count = (movie = Movie.find_by(id: params[:movie_id])).number_of_copies
           movie.update(number_of_copies: movie_copies_count + 1)
-          @msg = "성공적으로 영화를 대여하였습니다!"
+          @msg = "You have successfully rented a movie!"
         end 
       else
         #무제한
         count = current_user.total_monthly_order
-        @msg = "최대 2개의 영화만을 동시에 대여할 수 있습니다"
+        @msg = "You can only rent up to 2 movies at the same time."
         if total_order_count < 2
           current_user.orders.rented.create(movie_id: params[:movie_id])
           current_user.update(total_monthly_order: count + 1)
           movie_copies_count = (movie = Movie.find_by(id: params[:movie_id])).number_of_copies
           movie.update(number_of_copies: movie_copies_count + 1)
-          @msg = "성공적으로 영화를 대여하였습니다!"
+          @msg = "You have successfully rented a movie!"
         end
       end 
     end 
@@ -47,7 +50,7 @@ class OrdersController < ApplicationController
     @order = current_user.orders.rented.where(movie_id: params[:movie_id]).first
     @order.update(return_status: params[:return_status], return_date: Time.now)
 
-    flash[:notice] = "영화를 반납하였습니다!"
+    flash[:notice] = "The movie has been returned!"
     redirect_back(fallback_location: root_path)
   end 
 
