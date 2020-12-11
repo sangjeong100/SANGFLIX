@@ -1,24 +1,40 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+### Development Environment 
+```
+*project Name: SANGFLIX
 
-* Ruby version
+* Ruby version: 2.6.5v
 
-* System dependencies
+* Rails version: 6.0.3.4
+
+* development OS: windows 10 wsl Ubuntu 18.04
 
 * Configuration
 
-* Database creation
+* Database: My SQL 
 
-* Database initialization
+* Services: Movie Rental Site 
+ 
+```
 
-* How to run the test suite
+### bundle gem
+```
+device
+devise-i18n
+activeadmin
+bootstrap
+jquery-rails
+font-awesome-rails
+rails-i18n
+carrierwave
+carousel
+owlcarousel-rails
+mysql2
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### server run
+```
+rails s
+```
