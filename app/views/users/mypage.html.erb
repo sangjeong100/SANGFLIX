@@ -15,7 +15,7 @@
     <div class="col-9">
       <%= f.label "ACCOUNT TYPE", class: "text-gray" %>
       <%= f.select :account_type, options_for_select(User.account_types.keys.map{|account_type| [I18n.t("enum.user.account_type.#{account_type}"), account_type]}, current_user.account_type), {}, {class: 'form-control'} %>
-      <div class="text-red mt-2 ml-2" style="font-size: 13px;">Next payment date :  <%= current_user.plan_date || pretty_date(Time.now + 1.month) %></div>
+      <div class="text-red mt-2 ml-2" style="font-size: 13px;">Next payment date : <%= current_user.plan_date || pretty_date(Time.now + 1.month) %></div>
       <%= f.label "ACCOUNT NUMBER", class: "text-gray mt-2" %>
       <%= f.text_field :account_number, class: "form-control is-valid" %>
     </div>
@@ -54,10 +54,12 @@
   <% end %>
 </div>
 
+
+
 <script>
+  $('#save_btn').click(() => {
 
-$('#save_btn').click(()=>{
-  window.location.href = '/'
-});
-
+    alert("success!");
+    window.location.href = '/'
+  });
 </script>

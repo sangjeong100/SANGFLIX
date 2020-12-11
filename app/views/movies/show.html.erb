@@ -16,9 +16,9 @@
       <div class="mt-3"><%= @movie['movie_description'] %></div>
     </div>
     <div class="col-4">
-      <h6 class="mb-3">출연진</h6>
+      <h6 class="mb-3">Actors</h6>
       <div class="row">
-        <div class="text-red ml-3 mr-2">주연</div>
+        <div class="text-red ml-3 mr-2">Starring</div>
         <div>
           <% if ! @actors_of_movie.empty? %>
           <% @actors_of_movie.each do |actor| %>
@@ -30,7 +30,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="text-red ml-3 mr-2">조연</div>
+        <div class="text-red ml-3 mr-2">Support</div>
         <div>
           <% if !@actors_of_movie.empty? %>
           <% @actors_of_movie.each do |actor| %>
