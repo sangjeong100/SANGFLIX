@@ -118,7 +118,10 @@
         <p class="card-text text-white">Rented Date: <%= pretty_date rented_order.created_at %></p>
         <%= render "shared/rating", origin_score: rented_order.movie.rating %>
       </div>
-      <div class="card-body text-white">
+      <div class="card-body text-white mx-2">
+        <%= link_to update_status_orders_path(movie_id: rented_order.movie.id, return_status: :returned), method: :put, style: "", class: "card-link text-red" do %>
+        Return
+        <% end %>
         <a href="<%= movie_path(rented_order.movie) %>" class="card-link text-red">Show</a>
       </div>
     </div>
@@ -155,9 +158,9 @@
     </div>
     <% end %>
     <% else %>
-      <div class="text-gray" style="font-size:20px;margin: 10px 0px 150px 0px; width:100%;">
-        If you rent a movie and return it, you can give it a star rating.
-      </div>
+    <div class="text-gray" style="font-size:20px;margin: 10px 0px 150px 0px; width:100%;">
+      If you rent a movie and return it, you can give it a star rating.
+    </div>
     <%end%>
   </div>
 </div>

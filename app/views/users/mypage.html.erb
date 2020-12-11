@@ -50,6 +50,14 @@
       <%= f.text_field :telphone, class: "form-control is-valid" %>
     </div>
   </div>
-  <%= f.submit "SAVE", class: "btn btn-block btn-red float-right text-white my-3", style: "width: 10%;" %>
+  <%= f.submit "SAVE", id:"save_btn", class: "btn btn-block btn-red float-right text-white my-3", style: "width: 10%;" %>
   <% end %>
 </div>
+
+<script>
+
+$('#save_btn').click(()=>{
+  window.location.href = '/'
+});
+
+</script>

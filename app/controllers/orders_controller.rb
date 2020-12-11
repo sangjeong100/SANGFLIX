@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
       #order 개수 2회 넘게 불가
       total_order_count = current_user.orders.rented.count
 
-      if current_user.account_type == 0
+      if current_user.account_type == "twice_a_month_pass" #0값
         #월 2회
         @msg = "한달에 빌릴 수 있는 영화의 개수를 초과하였습니다."
         if (count = current_user.total_monthly_order) < 2 && total_order_count < 2
@@ -52,12 +52,12 @@ class OrdersController < ApplicationController
   end 
 
   def update
-    
+    #별점 주기
     @order.update(rating: params.dig(:order, :rating))
 
     give_star_order_sql = '
       UPDATE orders
-      SET rating = CONVERT(' + params.dig(:order, :rating)  +',decimal(3,2))
+      SET rating = CONVERT(' + params.dig(:order, :rating)  +',decimal(4,2))
       WHERE orders.id = ' + String(@order.id) + '
         AND orders.return_status = 1' 
     give_star_movie_sql = '

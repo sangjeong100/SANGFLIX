@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_09_164305) do
+ActiveRecord::Schema.define(version: 2020_12_11_092549) do
 
   create_table "active_admin_comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "namespace"
@@ -63,15 +63,15 @@ ActiveRecord::Schema.define(version: 2020_12_09_164305) do
     t.bigint "movie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["movie_id"], name: "index_movie_queues_on_movie_id"
-    t.index ["user_id"], name: "index_movie_queues_on_user_id"
+    t.index ["movie_id"], name: "index_movie_queue_on_movie_id"
+    t.index ["user_id"], name: "index_movie_queue_on_user_id"
   end
 
   create_table "movies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "movie_name"
     t.string "movie_type"
     t.integer "age_limit", default: 0
-    t.decimal "rating", precision: 3, scale: 2, default: "0.0"
+    t.decimal "rating", precision: 4, scale: 2, default: "0.0"
     t.integer "number_of_copies", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 2020_12_09_164305) do
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "movie_id", null: false
-    t.decimal "rating", precision: 3, scale: 2, default: "0.0"
+    t.decimal "rating", precision: 4, scale: 2, default: "0.0"
     t.integer "return_status"
     t.datetime "return_date"
     t.datetime "created_at", precision: 6, null: false
