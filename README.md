@@ -41,3 +41,8 @@ rails s
 
 ### example
 ![image](https://user-images.githubusercontent.com/56123201/119323749-02180680-bcba-11eb-9e6e-6057512facc7.png)
+
+
+## 소개영상
+
+
