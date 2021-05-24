@@ -44,5 +44,5 @@ rails s
 
 
 ## 소개영상
-
+https://user-images.githubusercontent.com/56123201/119327560-165e0280-bcbe-11eb-865c-f8f1956bad71.mp4
 
